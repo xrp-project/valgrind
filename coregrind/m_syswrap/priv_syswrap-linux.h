@@ -327,6 +327,8 @@ DECL_TEMPLATE(linux, sys_pidfd_open);
 DECL_TEMPLATE(linux, sys_close_range);
 DECL_TEMPLATE(linux, sys_openat2);
 
+DECL_TEMPLATE(linux, sys_read_xrp);
+
 // Linux-specific (new in Linux 5.14)
 DECL_TEMPLATE(linux, sys_memfd_secret);
 

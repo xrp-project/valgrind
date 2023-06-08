@@ -883,6 +883,8 @@ static SyscallTableEntry syscall_table[] = {
 
    LINX_(__NR_faccessat2,	 sys_faccessat2),        // 439
 
+   LINXY(__NR_read_xrp,          sys_read_xrp),        // 445 on Linux 5.12
+
    LINXY(__NR_memfd_secret,      sys_memfd_secret),      // 447
 };
 

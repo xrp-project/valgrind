@@ -4177,6 +4177,35 @@ POST(sys_statx)
 }
 
 /* ---------------------------------------------------------------------
+   read_xrp wrapper
+   ------------------------------------------------------------------ */
+
+/* unsigned int fd, char *data_buf, size_t count, loff_t pos, unsigned int bpf_fd,
+   char *scratch_buf */
+PRE(sys_read_xrp)
+{
+   // TODO: Handle VG_WORDSIZE cases, see PRE(sys_readahead) as an example
+   PRINT("sys_read_xrp ( %" FMT_REGWORD "u, %#" FMT_REGWORD "x, %"
+         FMT_REGWORD "u, %lu, %" FMT_REGWORD "u, %#" FMT_REGWORD "x )",
+         ARG1, ARG2, ARG3, ARG4, ARG5, ARG6);
+
+   PRE_REG_READ6(long, "read_xrp",
+                 unsigned int, fd, char *, data_buf, vki_size_t, count,
+                 vki_loff_t, pos, unsigned int, bpf_fd, char *, scratch_buf);
+
+   PRE_MEM_READ( "write(scratch_buf)", ARG6, 4096 /* scratch buffer size */ );
+
+   PRE_MEM_WRITE( "write(data_buf)", ARG2, (1UL << 21UL) /* data buffer size (huge page) */ ) ;
+   PRE_MEM_WRITE( "write(scratch_buf)", ARG6, 4096 /* scratch buffer size */ );
+}
+
+POST(sys_read_xrp)
+{
+   POST_MEM_WRITE( ARG2, (1UL << 21UL) /* data buffer size (huge page) */ );
+   POST_MEM_WRITE( ARG6, 4096 /* scratch buffer size */ );
+}
+
+/* ---------------------------------------------------------------------
    utime wrapper
    ------------------------------------------------------------------ */
 

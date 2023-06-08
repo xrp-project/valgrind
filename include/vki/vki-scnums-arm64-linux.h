@@ -326,8 +326,10 @@
 #define __NR_io_pgetevents 291
 #define __NR_rseq 293
 
+#define __NR_read_xrp 445
+
 #undef __NR_syscalls
-#define __NR_syscalls 294
+#define __NR_syscalls 446
 
 ///*
 // * All syscalls below here should go away really,

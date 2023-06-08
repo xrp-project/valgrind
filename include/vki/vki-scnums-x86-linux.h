@@ -430,6 +430,8 @@
 #define __NR_msgrcv		401
 #define __NR_msgctl		402
 
+#define __NR_read_xrp		445
+
 #endif /* __VKI_SCNUMS_X86_LINUX_H */
 
 /*--------------------------------------------------------------------*/
